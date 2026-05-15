@@ -200,7 +200,12 @@ void main() {
 
 	uint voxel_albedo = process_voxels.data[voxel_index].albedo;
 
+// pineapple: complex geometry outputs black voxel colors most of the time. For now, assume that all voxels are white.
+#if 0
 	vec3 albedo = vec3(uvec3(voxel_albedo >> 10, voxel_albedo >> 5, voxel_albedo) & uvec3(0x1F)) / float(0x1F);
+#else
+	vec3 albedo = vec3(1.0, 1.0, 1.0);
+#endif
 	vec3 light_accum[6] = vec3[](vec3(0.0), vec3(0.0), vec3(0.0), vec3(0.0), vec3(0.0), vec3(0.0));
 	uint valid_aniso = (voxel_albedo >> 15) & 0x3F;
 
